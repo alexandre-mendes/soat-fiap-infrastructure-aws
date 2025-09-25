@@ -1,0 +1,33 @@
+# Persistent Volumes Locais (Solução para AWS Academy)
+# NOTA: Os PVs são criados dinamicamente pelo script fix-node-affinity.sh
+# com base nos nodes disponíveis no momento do deploy
+
+---
+# Persistent Volume Claims apenas
+# Os PVs serão criados automaticamente pelo script de deploy
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prometheus-storage
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-storage
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: grafana-storage
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-storage
+  resources:
+    requests:
+      storage: 5Gi

@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: create-storage-dirs
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: create-storage-dirs
+  template:
+    metadata:
+      labels:
+        app: create-storage-dirs
+    spec:
+      hostPID: true
+      hostNetwork: true
+      initContainers:
+      - name: create-dirs
+        image: busybox:1.35
+        command:
+        - /bin/sh
+        - -c
+        - |
+          echo "Creating storage directories..."
+          mkdir -p /host/tmp/prometheus-data
+          mkdir -p /host/tmp/grafana-data
+          chmod 777 /host/tmp/prometheus-data
+          chmod 777 /host/tmp/grafana-data
+          echo "Directories created successfully"
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: host-tmp
+          mountPath: /host/tmp
+      containers:
+      - name: sleep
+        image: busybox:1.35
+        command: ['sleep', '30']
+      volumes:
+      - name: host-tmp
+        hostPath:
+          path: /tmp
+      tolerations:
+      - operator: Exists
