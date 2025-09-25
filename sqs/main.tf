@@ -9,8 +9,8 @@ resource "aws_sqs_queue" "video_processing_queue" {
   # Message retention period (14 days)
   message_retention_seconds = 1209600
 
-  # Visibility timeout (5 minutes)
-  visibility_timeout_seconds = 300
+  # Visibility timeout (1 hour)
+  visibility_timeout_seconds = 3600
 
   # Maximum message size (256 KB)
   max_message_size = 262144
