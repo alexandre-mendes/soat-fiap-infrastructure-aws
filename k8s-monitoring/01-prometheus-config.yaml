@@ -88,4 +88,16 @@ data:
         static_configs:
           - targets: ['soat-fiap-user-application-ms:80']
         metrics_path: '/metrics'
-        scrape_interval: 15s
+        scrape_interval: 10s
+      # Job para aplicação SOAT FIAP via Service (porta 80 -> 3000)
+      - job_name: 'soat-fiap-processar-manager-app'
+        static_configs:
+          - targets: ['soat-fiap-process-manager-application-ms:80']
+        metrics_path: '/metrics'
+        scrape_interval: 10s
+      # Job para aplicação SOAT FIAP via Service (porta 80 -> 3000)
+      - job_name: 'soat-fiap-video-processor-app'
+        static_configs:
+          - targets: ['soat-fiap-video-processor-application-ms:80']
+        metrics_path: '/metrics'
+        scrape_interval: 10s

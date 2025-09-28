@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards
+  namespace: default
+data:
+  soat-dashboard-user-application.json: |
+    {
+      "id": null,
+      "title": "SOAT FIAP User Application Metrics",
+      "tags": ["soat", "fiap", "user-application"],
+      "timezone": "browser",
+      "panels": [
+        {"id": 1, "title": "Total HTTP Requests", "type": "stat", "targets": [{"expr": "sum(http_requests_total{job=\"soat-fiap-user-app\"})", "legendFormat": "Total Requests", "refId": "A"}], "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}, "options": {"reduceOptions": {"values": false, "calcs": ["lastNotNull"], "fields": ""}, "orientation": "auto", "textMode": "auto", "colorMode": "value", "graphMode": "area", "justifyMode": "auto"}, "fieldConfig": {"defaults": {"mappings": [], "color": {"mode": "palette-classic"}, "custom": {"displayMode": "list", "orientation": "horizontal"}}}},
+        {"id": 2, "title": "HTTP Requests by Status Code", "type": "piechart", "targets": [{"expr": "sum(http_requests_total{job=\"soat-fiap-user-app\"}) by (status_code)", "legendFormat": "{{status_code}}", "refId": "A"}], "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}, "options": {"pieType": "pie", "reduceOptions": {"values": false, "calcs": ["lastNotNull"], "fields": ""}, "legend": {"displayMode": "visible", "placement": "bottom"}}},
+        {"id": 3, "title": "HTTP Requests Rate (per minute)", "type": "graph", "targets": [{"expr": "rate(http_requests_total{job=\"soat-fiap-user-app\"}[1m]) * 60", "legendFormat": "{{method}} {{route}} ({{status_code}})", "refId": "A"}], "gridPos": {"h": 8, "w": 24, "x": 0, "y": 8}, "yAxes": [{"label": "Requests per minute", "show": true}, {"show": true}], "xAxis": {"show": true}, "legend": {"show": true}},
+        {"id": 4, "title": "HTTP Requests by Route", "type": "bargauge", "targets": [{"expr": "sum(http_requests_total{job=\"soat-fiap-user-app\"}) by (route)", "legendFormat": "{{route}}", "refId": "A"}], "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16}, "options": {"orientation": "horizontal", "reduceOptions": {"values": false, "calcs": ["lastNotNull"], "fields": ""}, "displayMode": "basic"}},
+        {"id": 5, "title": "HTTP Requests by Method", "type": "bargauge", "targets": [{"expr": "sum(http_requests_total{job=\"soat-fiap-user-app\"}) by (method)", "legendFormat": "{{method}}", "refId": "A"}], "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16}, "options": {"orientation": "horizontal", "reduceOptions": {"values": false, "calcs": ["lastNotNull"], "fields": ""}, "displayMode": "basic"}}
+      ],
+      "time": {"from": "now-1h", "to": "now"},
+      "refresh": "5s",
+      "schemaVersion": 30,
+      "version": 0
+    }
+  soat-dashboard-process-manager.json: |
+    {
+      "id": null,
+      "title": "SOAT FIAP Process Manager Metrics",
+      "tags": ["soat", "fiap", "process-manager"],
+      "timezone": "browser",
+      "panels": [
+        {"id": 1, "title": "Total HTTP Requests", "type": "stat", "targets": [{"expr": "sum(http_requests_total{job=\"soat-fiap-process-manager-app\"})", "legendFormat": "Total Requests", "refId": "A"}], "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}, "options": {"reduceOptions": {"values": false, "calcs": ["lastNotNull"], "fields": ""}, "orientation": "auto", "textMode": "auto", "colorMode": "value", "graphMode": "area", "justifyMode": "auto"}, "fieldConfig": {"defaults": {"mappings": [], "color": {"mode": "palette-classic"}, "custom": {"displayMode": "list", "orientation": "horizontal"}}}},
+        {"id": 2, "title": "HTTP Requests by Status Code", "type": "piechart", "targets": [{"expr": "sum(http_requests_total{job=\"soat-fiap-process-manager-app\"}) by (status_code)", "legendFormat": "{{status_code}}", "refId": "A"}], "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}, "options": {"pieType": "pie", "reduceOptions": {"values": false, "calcs": ["lastNotNull"], "fields": ""}, "legend": {"displayMode": "visible", "placement": "bottom"}}},
+        {"id": 3, "title": "HTTP Requests Rate (per minute)", "type": "graph", "targets": [{"expr": "rate(http_requests_total{job=\"soat-fiap-process-manager-app\"}[1m]) * 60", "legendFormat": "{{method}} {{route}} ({{status_code}})", "refId": "A"}], "gridPos": {"h": 8, "w": 24, "x": 0, "y": 8}, "yAxes": [{"label": "Requests per minute", "show": true}, {"show": true}], "xAxis": {"show": true}, "legend": {"show": true}},
+        {"id": 4, "title": "HTTP Requests by Route", "type": "bargauge", "targets": [{"expr": "sum(http_requests_total{job=\"soat-fiap-process-manager-app\"}) by (route)", "legendFormat": "{{route}}", "refId": "A"}], "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16}, "options": {"orientation": "horizontal", "reduceOptions": {"values": false, "calcs": ["lastNotNull"], "fields": ""}, "displayMode": "basic"}},
+        {"id": 5, "title": "HTTP Requests by Method", "type": "bargauge", "targets": [{"expr": "sum(http_requests_total{job=\"soat-fiap-process-manager-app\"}) by (method)", "legendFormat": "{{method}}", "refId": "A"}], "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16}, "options": {"orientation": "horizontal", "reduceOptions": {"values": false, "calcs": ["lastNotNull"], "fields": ""}, "displayMode": "basic"}}
+      ],
+      "time": {"from": "now-1h", "to": "now"},
+      "refresh": "5s",
+      "schemaVersion": 30,
+      "version": 0
+    }
+  soat-dashboard-video-processor.json: |
+    {
+      "id": null,
+      "title": "SOAT FIAP Video Processor Metrics",
+      "tags": ["soat", "fiap", "video-processor"],
+      "timezone": "browser",
+      "panels": [
+        {"id": 1, "title": "Total Processed Videos", "type": "stat", "targets": [{"expr": "sum(video_processed_total{job=\"soat-fiap-video-processor-app\"})", "legendFormat": "Total Processed", "refId": "A"}], "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}, "options": {"reduceOptions": {"values": false, "calcs": ["lastNotNull"], "fields": ""}, "orientation": "auto", "textMode": "auto", "colorMode": "value", "graphMode": "area", "justifyMode": "auto"}, "fieldConfig": {"defaults": {"mappings": [], "color": {"mode": "palette-classic"}, "custom": {"displayMode": "list", "orientation": "horizontal"}}}},
+        {"id": 2, "title": "Processing Errors", "type": "stat", "targets": [{"expr": "sum(video_processing_errors_total{job=\"soat-fiap-video-processor-app\"})", "legendFormat": "Errors", "refId": "A"}], "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}, "options": {"reduceOptions": {"values": false, "calcs": ["lastNotNull"], "fields": ""}, "orientation": "auto", "textMode": "auto", "colorMode": "value", "graphMode": "area", "justifyMode": "auto"}, "fieldConfig": {"defaults": {"mappings": [], "color": {"mode": "palette-classic"}, "custom": {"displayMode": "list", "orientation": "horizontal"}}}},
+        {"id": 3, "title": "Processing Rate (per minute)", "type": "graph", "targets": [{"expr": "rate(video_processed_total{job=\"soat-fiap-video-processor-app\"}[1m]) * 60", "legendFormat": "Processed/min", "refId": "A"}], "gridPos": {"h": 8, "w": 24, "x": 0, "y": 8}, "yAxes": [{"label": "Videos/min", "show": true}, {"show": true}], "xAxis": {"show": true}, "legend": {"show": true}},
+        {"id": 4, "title": "Average Processing Time", "type": "stat", "targets": [{"expr": "avg(video_processing_duration_seconds{job=\"soat-fiap-video-processor-app\"})", "legendFormat": "Avg Duration (s)", "refId": "A"}], "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16}, "options": {"reduceOptions": {"values": false, "calcs": ["lastNotNull"], "fields": ""}, "orientation": "auto", "textMode": "auto", "colorMode": "value", "graphMode": "area", "justifyMode": "auto"}, "fieldConfig": {"defaults": {"mappings": [], "color": {"mode": "palette-classic"}, "custom": {"displayMode": "list", "orientation": "horizontal"}}}}
+      ],
+      "time": {"from": "now-1h", "to": "now"},
+      "refresh": "5s",
+      "schemaVersion": 30,
+      "version": 0
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-providers
+  namespace: default
+data:
+  dashboards.yaml: |
+    apiVersion: 1
+    providers:
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards
