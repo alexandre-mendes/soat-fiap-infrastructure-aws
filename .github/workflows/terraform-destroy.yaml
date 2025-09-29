@@ -1,0 +1,65 @@
+name: Terraform Destroy - Infraestrutura SOAT
+
+on:
+  workflow_dispatch:
+
+env:
+  AWS_REGION: us-east-1
+
+jobs:
+  destroy-infra:
+    name: Destroy Infraestrutura (api-gateway, eks, sqs, dynamo, s3)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Configurar AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Instalar Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.0
+
+      # API Gateway
+      - name: Terraform Destroy API Gateway
+        working-directory: api-gateway
+        run: |
+          terraform init
+          terraform destroy -auto-approve
+
+      # EKS
+      - name: Terraform Destroy EKS
+        working-directory: eks
+        run: |
+          terraform init
+          terraform destroy -auto-approve
+
+      # SQS
+      - name: Terraform Destroy SQS
+        working-directory: sqs
+        run: |
+          terraform init
+          terraform destroy -auto-approve
+
+      # DynamoDB
+      - name: Terraform Destroy DynamoDB
+        working-directory: dynamo
+        run: |
+          terraform init
+          terraform destroy -auto-approve
+
+      # S3 - deletar buckets/tabelas manualmente via AWS CLI
+      - name: Deletar buckets e tabelas S3
+        run: |
+          aws s3 rm s3://terraform-state-video-processing --recursive || true
+          aws s3api delete-bucket --bucket terraform-state-video-processing || true
+          aws dynamodb delete-table --table-name terraform-state-lock || true
+          aws s3 rm s3://<outros-buckets-do-projeto> --recursive || true
+          aws s3api delete-bucket --bucket <outros-buckets-do-projeto> || true
