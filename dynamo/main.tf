@@ -3,10 +3,10 @@
 resource "aws_dynamodb_table" "users" {
   name           = "user"
   billing_mode   = "PAY_PER_REQUEST"
-  hash_key       = "userId"
+  hash_key       = "id"
 
   attribute {
-    name = "userId"
+    name = "id"
     type = "S"
   }
 
@@ -20,10 +20,10 @@ resource "aws_dynamodb_table" "users" {
 resource "aws_dynamodb_table" "processes" {
   name           = "process"
   billing_mode   = "PAY_PER_REQUEST"
-  hash_key       = "processId"
+  hash_key       = "id"
 
   attribute {
-    name = "processId"
+    name = "id"
     type = "S"
   }
 
