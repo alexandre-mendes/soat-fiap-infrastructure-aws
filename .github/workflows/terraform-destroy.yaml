@@ -8,7 +8,7 @@ env:
 
 jobs:
   destroy-infra:
-    name: Destroy Infraestrutura (api-gateway, eks, sqs, dynamo, s3)
+    name: Destroy Infraestrutura (eks, sqs, dynamo, s3)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do código
@@ -26,13 +26,6 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.5.0
-
-      # API Gateway
-      - name: Terraform Destroy API Gateway
-        working-directory: api-gateway
-        run: |
-          terraform init
-          terraform destroy -auto-approve
 
       # EKS
       - name: Terraform Destroy EKS

@@ -63,11 +63,8 @@ jobs:
           terraform plan -out=tfplan
           terraform apply -auto-approve tfplan
 
-      # API Gateway
-      - name: Terraform Apply API Gateway
-        working-directory: api-gateway
+      # Subir Prometheus e Grafana (k8s-monitoring)
+      - name: Deploy Prometheus e Grafana
         run: |
-          terraform init
-          terraform validate
-          terraform plan -out=tfplan
-          terraform apply -auto-approve tfplan
+          aws eks update-kubeconfig --region $AWS_REGION --name soat-cluster
+          kubectl apply -f k8s-monitoring/

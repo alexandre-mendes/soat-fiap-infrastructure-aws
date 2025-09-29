@@ -100,11 +100,17 @@ Este projeto implementa uma arquitetura de microsserviços para processamento de
 
 ---
 
-## 🗺️ Diagrama de Arquitetura (texto)
+## 🗺️ Arquitetura
+
+Todos os recursos de cloud estão sendo provisionados utilizando Terraform.
 
 ![Terraform](doc/terraform.png)
 
+As aplicações estão executando em Kubernates utilizando do EKS, a parte de monitoria (Prometheus + Grafana) também são executados no mesmo tipo de runtime.
+
 ![Kubernetes](doc/kubernetes.png)
+
+Aqui temos uma visão de como os componentes (aplicação x cloud) interagem entre si.
 
 ![Componentes](doc/componentes.png)
 
