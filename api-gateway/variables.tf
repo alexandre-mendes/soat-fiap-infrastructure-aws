@@ -93,7 +93,7 @@ variable "logging_level" {
 variable "enable_custom_domain" {
   description = "Enable custom domain for API Gateway"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "domain_name" {
@@ -111,5 +111,5 @@ variable "hosted_zone_name" {
 variable "create_route53_record" {
   description = "Create Route53 A record for the custom domain"
   type        = bool
-  default     = true
+  default     = false
 }
