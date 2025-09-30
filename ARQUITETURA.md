@@ -15,23 +15,23 @@ Este projeto implementa uma arquitetura de microsserviços para processamento de
 ## 🧩 Microsserviços
 
 ### 👤 1. User Application
-Gerencia usuários: cadastro, autenticação, listagem, remoção
-Persistência: **DynamoDB**
+- Gerencia usuários: cadastro, autenticação, listagem, remoção.
+- Persistência: **DynamoDB**
 
 ### ⚙️ 2. Process Manager Application
-Recebe requisições de processamento de vídeo
+- Recebe requisições de processamento de vídeo
 Sobe vídeos no S3
-Publica mensagens no SQS para processamento
-Persiste status dos vídeos no **DynamoDB**
-Permite acompanhar status dos vídeos e baixar arquivos zipados
-Gerencia exclusão de arquivos processados
+- Publica mensagens no SQS para processamento
+- Persiste status dos vídeos no **DynamoDB**
+- Permite acompanhar status dos vídeos e baixar arquivos zipados
+- Gerencia exclusão de arquivos processados
 
 ### 🎥 3. Video Processor Application (Go)
-Consome mensagens do SQS
-Baixa vídeos do S3, processa e gera frames
-Sobe arquivos zipados de frames no S3
-Publica mensagens de status no SQS (início, erro, sucesso)
-Deleta arquivos processados do S3
+- Consome mensagens do SQS
+- Baixa vídeos do S3, processa e gera frames
+- Sobe arquivos zipados de frames no S3
+- Publica mensagens de status no SQS (início, erro, sucesso)
+- Deleta arquivos processados do S3
 
 ---
 
